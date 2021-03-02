@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace client
+namespace Client.App
 {
     public static class Program
     {

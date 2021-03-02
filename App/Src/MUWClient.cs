@@ -1,13 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.IO;
+using Client.App.Asset;
+using Client.App.Scene;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace client
+namespace Client.App
 {
     public class MUWClient : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private SceneManager _sceneManager;
 
         public MUWClient()
         {
@@ -19,15 +23,16 @@ namespace client
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            _sceneManager = new SceneManager(SceneSets.DefaultSceneSet);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            
+            string cwd = Directory.GetCurrentDirectory();
+            AssetRepository.LoadAssets(Path.Combine(cwd, "Assets"), this.GraphicsDevice);
         }
 
         protected override void Update(GameTime gameTime)
@@ -36,7 +41,7 @@ namespace client
                 Exit();
 
             // TODO: Add your update logic here
-
+            _sceneManager.CurrentScene.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -44,7 +49,9 @@ namespace client
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+            _sceneManager.CurrentScene.Draw(_spriteBatch);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
