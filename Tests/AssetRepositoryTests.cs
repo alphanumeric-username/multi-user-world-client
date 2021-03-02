@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Xunit;
 
-namespace Tests
+namespace Client.Tests
 {
     public class AssetRepositoryTests
     {
