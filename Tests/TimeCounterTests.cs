@@ -14,7 +14,6 @@ namespace Client.Tests
         [InlineData(3)]
         public void Tick_20Seconds_DtEq10AndElapsedTimeEq10(int iterations)
         {
-            GameTime gameTime = new GameTime();
             TimeCounter timeCounter = new TimeCounter();
 
             timeCounter.Tick(new GameTime());
@@ -31,7 +30,6 @@ namespace Client.Tests
         [Fact]
         public void Reset__DtEq0AndElapsedTimeEq0()
         {
-            GameTime gameTime = new GameTime();
             TimeCounter timeCounter = new TimeCounter();
 
             timeCounter.Tick(new GameTime());
