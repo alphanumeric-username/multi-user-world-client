@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Client.App.Scene
@@ -14,7 +15,15 @@ namespace Client.App.Scene
         }
         
         public void RequestTransition(string sceneID, object args) {
-
+            SceneFactory nextSceneFactory = SceneSet.GetValueOrDefault(sceneID);
+            if (nextSceneFactory == null) {
+                throw new ArgumentOutOfRangeException(sceneID);
+            }
+            AbstractScene nextScene = nextSceneFactory(args);
+            nextScene.BeforeAttach();
+            this.CurrentScene = nextScene;
+            nextScene.sceneManager = this;
+            nextScene.AfterAttach();
         }
     }
 }
