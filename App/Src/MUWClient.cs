@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Client.App.Asset;
+using Client.App.Info;
 using Client.App.Scene;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,6 +25,7 @@ namespace Client.App
         {
             // TODO: Add your initialization logic here
             _sceneManager = new SceneManager(SceneSets.DefaultSceneSet);
+            Screen.ProvideInformation(this.Window.ClientBounds.Size.ToVector2());
             base.Initialize();
         }
 
