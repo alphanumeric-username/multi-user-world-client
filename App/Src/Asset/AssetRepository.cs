@@ -15,26 +15,36 @@ namespace Client.App.Asset
 
         public static void LoadAssets(string assetRootDirectory, GraphicsDevice graphicsDevice)
         {
+            LoadSprites(assetRootDirectory, graphicsDevice);
+            LoadSounds(assetRootDirectory);
+
+            RootDirectory = assetRootDirectory;
+        }
+
+        private static void LoadSprites(string assetRootDirectory, GraphicsDevice graphicsDevice) {
             Sprites = new Dictionary<string, Texture2D>();
-            Sounds = new Dictionary<string, SoundEffect>();
-
+            
             string spritesDirectory = Path.Combine(assetRootDirectory, "Sprites");
-            string soundsDirectory = Path.Combine(assetRootDirectory, "Sounds");
-
             var spriteFiles = FilterFilesByExtension(Directory.EnumerateFiles(spritesDirectory), "png");
-            var soundFiles = FilterFilesByExtension(Directory.EnumerateFiles(spritesDirectory), "ogg");
-
+            
             foreach(string spriteFile in spriteFiles) {
                 string spriteName = RemoveFilePathAndExtension(spriteFile);
                 Sprites[spriteName] = Texture2D.FromFile(graphicsDevice, spriteFile);
             }
+        }
+
+        private static void LoadSounds(string assetRootDirectory) {
+            Sounds = new Dictionary<string, SoundEffect>();
+
+            string soundsDirectory = Path.Combine(assetRootDirectory, "Sounds");
+
+            var soundFiles = FilterFilesByExtension(Directory.EnumerateFiles(soundsDirectory), "ogg");
+
             
             foreach(string soundFile in soundFiles) {
                 string soundName = RemoveFilePathAndExtension(soundFile);
                 Sounds[soundName] = SoundEffect.FromFile(soundFile);
             }
-
-            RootDirectory = assetRootDirectory;
         }
 
         private static IEnumerable<string> FilterFilesByExtension(IEnumerable<string> files, string extension) {
