@@ -6,8 +6,9 @@ namespace Client.App.Asset
 {
     public static class FontBuilder
     {
-        public static SpriteFont Build(SFDFData data) {
+        public static SpriteFont Build(Texture2D texture, SFDFData data) {
             SpriteFontParameters parameters = SFDFDataToSpriteFontParameters(data);
+            parameters.Texture = texture;
             return new SpriteFont(
                 parameters.Texture,
                 parameters.GlyphBounds,
@@ -22,14 +23,13 @@ namespace Client.App.Asset
 
         private static SpriteFontParameters SFDFDataToSpriteFontParameters(SFDFData data) {
             return new SpriteFontParameters {
-                Texture = AssetRepository.Sprites[data.SpriteName],
                 GlyphBounds = data.GlyphBounds.ConvertAll((r) => new Rectangle(r.X, r.Y, r.Width, r.Height)),
                 Cropping = data.Cropping.ConvertAll((r) => new Rectangle(r.X, r.Y, r.Width, r.Height)),
-                Characters = data.Characters,
+                Characters = new List<char>(data.Characters.ToCharArray()),
                 LineSpacing = data.LineSpacing,
                 Spacing = data.Spacing,
                 Kerning = data.Kerning.ConvertAll((v) => new Vector3(v.X, v.Y, v.Z)),
-                DefaultCharacter = data.DefaultCharacter,
+                DefaultCharacter = data.DefaultCharacter.ToCharArray()[0],
             };
         }
     }

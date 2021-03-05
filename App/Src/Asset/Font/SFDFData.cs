@@ -4,14 +4,13 @@ namespace Client.App.Asset
 {
     public struct SFDFData
     {
-        public string SpriteName { get; set; }
         public List<SFDFRectangle> GlyphBounds { get; set; }
         public List<SFDFRectangle> Cropping { get; set; }
-        public List<char> Characters { get; set; }
+        public string Characters { get; set; }
         public int LineSpacing { get; set; }
         public float Spacing { get; set; }
         public List<SFDFVector3> Kerning { get; set; }
-        public char DefaultCharacter { get; set; }
+        public string DefaultCharacter { get; set; }
     }
     public struct SFDFRectangle {
         public int X { get; set; }
