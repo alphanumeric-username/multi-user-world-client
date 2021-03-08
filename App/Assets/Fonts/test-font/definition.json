@@ -1,0 +1,24 @@
+{
+    "GlyphBounds": [
+        { "X": 0, "Y": 0, "Width": 16, "Height": 16 },
+        { "X": 17, "Y": 0, "Width": 16, "Height": 16 },
+        { "X": 0, "Y": 17, "Width": 16, "Height": 16 },
+        { "X": 17, "Y": 17, "Width": 16, "Height": 16 }
+    ],
+    "Cropping": [
+        { "X": 0, "Y": 0, "Width": 16, "Height": 16 },
+        { "X": 0, "Y": 0, "Width": 16, "Height": 16 },
+        { "X": 0, "Y": 0, "Width": 16, "Height": 16 },
+        { "X": 0, "Y": 0, "Width": 16, "Height": 16 }
+    ],
+    "Characters": "ABCD",
+    "LineSpacing": 8,
+    "Spacing": 4.0,
+    "Kerning": [
+        { "X": 0, "Y": 16, "Z": 0 },
+        { "X": 0, "Y": 16, "Z": 0 },
+        { "X": 0, "Y": 16, "Z": 0 },
+        { "X": 0, "Y": 16, "Z": 0 }
+    ],
+    "DefaultCharacter": "A"
+}

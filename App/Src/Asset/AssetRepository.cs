@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
@@ -15,10 +17,11 @@ namespace Client.App.Asset
         public static Dictionary<string, SpriteFont> Fonts { get; private set; }
         public static string RootDirectory { get; private set; }
 
-        public static void LoadAssets(string assetRootDirectory, GraphicsDevice graphicsDevice)
+        public static void LoadAssets(string assetRootDirectory, GraphicsDevice graphicsDevice, ContentManager content)
         {
             LoadSprites(assetRootDirectory, graphicsDevice);
             LoadSounds(assetRootDirectory);
+            LoadFonts(assetRootDirectory, graphicsDevice, content);
 
             RootDirectory = assetRootDirectory;
         }
@@ -48,22 +51,22 @@ namespace Client.App.Asset
                 Sounds[soundName] = SoundEffect.FromFile(soundFile);
             }
         }
-        private static void LoadFonts(string assetRootDirectory, GraphicsDevice graphicsDevice) {
+        private static void LoadFonts(string assetRootDirectory, GraphicsDevice graphicsDevice, ContentManager content) {
             Fonts = new Dictionary<string, SpriteFont>();
 
-            string fontsDirectory = Path.Combine(assetRootDirectory, "Fonts");
+            Fonts["dot-gothic-16"] = content.Load<SpriteFont>("fonts/DotGothic16");
 
-            var fontPacks = Directory.EnumerateDirectories(fontsDirectory);
-            
-            foreach(string fontPack in fontPacks) {
-                string fontName = RemoveFilePathAndExtension(fontPack);
+            // string fontsDirectory = Path.Combine(assetRootDirectory, "Fonts");
+
+            // var fontPacks = Directory.EnumerateDirectories(fontsDirectory);
+            // foreach(string fontPack in fontPacks) {
+            //     string fontName = RemoveFilePathAndExtension(fontPack);
                 
-                Texture2D fontTexture = Texture2D.FromFile(graphicsDevice, Path.Combine(fontPack, fontName + ".png"));
-                string rawSfdfData = File.ReadAllText(Path.Combine(fontPack, fontName + ".json"));
-                SFDFData sfdfData = JsonSerializer.Deserialize<SFDFData>(rawSfdfData);
-
-                Fonts[fontName] = FontBuilder.Build(fontTexture, sfdfData);
-            }
+            //     Texture2D fontTexture = Texture2D.FromFile(graphicsDevice, Path.Combine(fontPack, "texture.png"));
+            //     string rawSfdfData = File.ReadAllText(Path.Combine(fontPack, "definition.json"));
+            //     SFDFData sfdfData = JsonSerializer.Deserialize<SFDFData>(rawSfdfData);
+            //     Fonts[fontName] = FontBuilder.Build(fontTexture, sfdfData);
+            // }
         }
 
         private static IEnumerable<string> FilterFilesByExtension(IEnumerable<string> files, string extension) {
@@ -72,7 +75,7 @@ namespace Client.App.Asset
         }
 
         private static string RemoveFilePathAndExtension(string file) {
-            int startIndex = file.LastIndexOf(Path.PathSeparator) + 1;
+            int startIndex = file.LastIndexOf(Path.DirectorySeparatorChar) + 1;
             int lastIndexOfDot = file.LastIndexOf('.');
             if (lastIndexOfDot > 0) {
                 int length = file.LastIndexOf('.') - startIndex;

@@ -24,7 +24,6 @@ namespace Client.App
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _sceneManager = new SceneManager(SceneSets.DefaultSceneSet);
             Screen.ProvideInformation(this.Window.ClientBounds.Size.ToVector2());
             base.Initialize();
         }
@@ -34,7 +33,8 @@ namespace Client.App
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             
             string cwd = Directory.GetCurrentDirectory();
-            AssetRepository.LoadAssets(Path.Combine(cwd, "Assets"), this.GraphicsDevice);
+            AssetRepository.LoadAssets(Path.Combine(cwd, "Assets"), this.GraphicsDevice, Content);
+            _sceneManager = new SceneManager(SceneSets.TestSceneSet);
         }
 
         protected override void Update(GameTime gameTime)
@@ -49,7 +49,7 @@ namespace Client.App
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
             _sceneManager.CurrentScene.Draw(_spriteBatch);

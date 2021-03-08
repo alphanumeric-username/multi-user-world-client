@@ -8,5 +8,9 @@ namespace Client.App.Scene {
             { "menu", MenuScene.Factory }
         };
         
+        public static Dictionary<string, SceneFactory> TestSceneSet { get; private set; } = new Dictionary<string, SceneFactory>() {
+            { "_initial", TextTestScene.Factory },
+            { "text", TextTestScene.Factory },
+        };
     }
 }
