@@ -14,7 +14,7 @@ namespace Client.App.Scene
             this.RequestTransition("_initial", initialSceneArgs);
         }
         
-        public void RequestTransition(string sceneID, object args) {
+        public void RequestTransition(string sceneID, object args = null) {
             SceneFactory nextSceneFactory = SceneSet.GetValueOrDefault(sceneID);
             if (nextSceneFactory == null) {
                 throw new ArgumentOutOfRangeException(sceneID);

@@ -13,7 +13,7 @@ namespace Client.App
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SceneManager _sceneManager;
-
+        public static bool ShouldExit { get; set; } = false;
         public MUWClient()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -34,15 +34,14 @@ namespace Client.App
             
             string cwd = Directory.GetCurrentDirectory();
             AssetRepository.LoadAssets(Path.Combine(cwd, "Assets"), this.GraphicsDevice, Content);
-            _sceneManager = new SceneManager(SceneSets.TestSceneSet);
+            _sceneManager = new SceneManager(SceneSets.DefaultSceneSet);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            // if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (ShouldExit)
                 Exit();
-
-            // TODO: Add your update logic here
             _sceneManager.CurrentScene.Update(gameTime);
             base.Update(gameTime);
         }
